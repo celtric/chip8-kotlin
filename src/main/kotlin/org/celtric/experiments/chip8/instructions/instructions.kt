@@ -8,16 +8,17 @@ class Instructions(private val instructions: List<Instruction>) {
 }
 
 class InstructionData(private val mostSignificantByte: Byte, private val leastSignificantByte: Byte) {
-    fun instructionCode() = InstructionCode(upperNibble())
+    fun instructionCode() = upperNibble().toInstructionCode()
     private fun upperNibble() = Nibble((mostSignificantByte.toInt() and 0xf0) shr 4)
     fun lowerNibble() = Nibble(mostSignificantByte.toInt() and 0xf)
     fun leastSignificantByteAsNumber() = Number(leastSignificantByte.toInt())
 }
 
-data class InstructionCode(private val nibble: Nibble)
+data class InstructionCode(private val code: Int)
 
 data class Nibble(private val value: Int) {
     fun toRegister() = Register(value)
+    fun toInstructionCode() = InstructionCode(value)
 }
 
 data class Register(private val number: Int)
