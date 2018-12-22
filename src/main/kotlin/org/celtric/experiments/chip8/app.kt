@@ -14,13 +14,6 @@ class App {
     }
 }
 
-class Instructions(private val opcodes: List<Opcode>) {
-
-    fun debug() {
-        opcodes.forEach { it.debug() }
-    }
-}
-
 class ROM(private val filename: String) {
 
     fun read(): Instructions {
@@ -34,6 +27,13 @@ class ROM(private val filename: String) {
 
     private fun romContent() =
         DataInputStream(BufferedInputStream(javaClass.getResourceAsStream(filename))).use { it.readBytes() }
+}
+
+class Instructions(private val opcodes: List<Opcode>) {
+
+    fun debug() {
+        opcodes.forEach { it.debug() }
+    }
 }
 
 class Opcode(private val mostSignificantByte: Byte, private val leastSignificantByte: Byte) {
