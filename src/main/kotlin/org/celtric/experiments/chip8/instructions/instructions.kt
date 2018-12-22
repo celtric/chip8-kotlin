@@ -8,16 +8,17 @@ class Instructions(private val instructions: List<Instruction>) {
 }
 
 class InstructionData(private val mostSignificantByte: Byte, private val leastSignificantByte: Byte) {
-    fun upperNibble() = UpperNibble((mostSignificantByte.toInt() and 0xf0) shr 4)
-    fun lowerNibble() = UpperNibble(mostSignificantByte.toInt() and 0xf)
+    fun instructionCode() = InstructionCode(upperNibble())
+    private fun upperNibble() = Nibble((mostSignificantByte.toInt() and 0xf0) shr 4)
+    fun lowerNibble() = Nibble(mostSignificantByte.toInt() and 0xf)
     fun leastSignificantByteAsNumber() = Number(leastSignificantByte.toInt())
 }
 
-data class UpperNibble(private val value: Int) {
+data class InstructionCode(private val nibble: Nibble)
+
+data class Nibble(private val value: Int) {
     fun toRegister() = Register(value)
 }
-
-data class LowerNibble(private val value: Int)
 
 data class Register(private val number: Int)
 data class Number(private val value: Int)
@@ -28,7 +29,7 @@ abstract class Instruction {
 
     companion object {
         fun fromReference(instructionData: InstructionData): Instruction {
-            return when (instructionData.upperNibble()) {
+            return when (instructionData.instructionCode()) {
                 StoreNumber.instructionCode() -> StoreNumber(instructionData)
                 else -> UnknownInstruction(instructionData)
             }
