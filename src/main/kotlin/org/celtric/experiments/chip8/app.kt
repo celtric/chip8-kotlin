@@ -9,40 +9,30 @@ fun main(args: Array<String>) {
 
 class App {
     fun run(romLocation: String) {
-        val rom = ROM(romLocation)
-        val memory = Memory(rom.read())
-        memory.debug()
+        val instructions = ROM(romLocation).read()
+        instructions.debug()
     }
 }
 
-typealias ProgramInstructions = ByteArray
-
-class Memory(instructions: ProgramInstructions) {
-
-    private val memoryLimit = 0x1000
-    private val firstPublicLocation = 0x200
-
-    private val state = ByteArray(memoryLimit)
-    private val programSize = instructions.size
-
-    init {
-        System.arraycopy(instructions, 0, state, firstPublicLocation, programSize)
-    }
+class Instructions(private val opcodes: List<Opcode>) {
 
     fun debug() {
-        for (address in firstPublicLocation..(firstPublicLocation + programSize) step 2) {
-            opcodeOf(address).debug()
-        }
-    }
-
-    private fun opcodeOf(address: Int): Opcode {
-        require(address % 2 == 0) { "Least significant byte address provided" }
-        return Opcode(state[address], state[address + 1])
+        opcodes.forEach { it.debug() }
     }
 }
 
 class ROM(private val filename: String) {
-    fun read(): ProgramInstructions =
+
+    fun read(): Instructions {
+        val romContent = romContent()
+        val opcodes = mutableListOf<Opcode>()
+        for (i in 0..(romContent.size - 1) step 2) {
+            opcodes.add(Math.floor((i / 2).toDouble()).toInt(), Opcode(romContent[i], romContent[i + 1]))
+        }
+        return Instructions(opcodes)
+    }
+
+    private fun romContent() =
         DataInputStream(BufferedInputStream(javaClass.getResourceAsStream(filename))).use { it.readBytes() }
 }
 
