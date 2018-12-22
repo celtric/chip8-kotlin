@@ -21,17 +21,24 @@ class Memory {
     private val firstPublicLocation = 0x200
 
     private val state = ByteArray(memoryLimit)
+    private var programSize = 0
 
     fun load(rom: ROM) {
         val romContent = rom.read()
-        System.arraycopy(romContent, 0, state, firstPublicLocation, romContent.size)
+        programSize = romContent.size
+        System.arraycopy(romContent, 0, state, firstPublicLocation, programSize)
     }
 
     fun debug() {
-        opcode(firstPublicLocation).debug()
+        for (address in firstPublicLocation..(firstPublicLocation + programSize) step 2) {
+            opcodeOf(address).debug()
+        }
     }
 
-    private fun opcode(address: Int) = Opcode(state[address], state[address + 1])
+    private fun opcodeOf(address: Int): Opcode {
+        require(address % 2 == 0) { "Least significant byte address provided" }
+        return Opcode(state[address], state[address + 1])
+    }
 }
 
 class ROM(private val filename: String) {
