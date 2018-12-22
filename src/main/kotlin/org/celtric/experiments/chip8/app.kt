@@ -8,25 +8,25 @@ fun main(args: Array<String>) {
 }
 
 class App {
-    fun run(filename: String) {
-        val memory = Memory()
-        memory.load(ROM(filename))
+    fun run(romLocation: String) {
+        val rom = ROM(romLocation)
+        val memory = Memory(rom.read())
         memory.debug()
     }
 }
 
-class Memory {
+typealias ProgramInstructions = ByteArray
+
+class Memory(instructions: ProgramInstructions) {
 
     private val memoryLimit = 0x1000
     private val firstPublicLocation = 0x200
 
     private val state = ByteArray(memoryLimit)
-    private var programSize = 0
+    private val programSize = instructions.size
 
-    fun load(rom: ROM) {
-        val romContent = rom.read()
-        programSize = romContent.size
-        System.arraycopy(romContent, 0, state, firstPublicLocation, programSize)
+    init {
+        System.arraycopy(instructions, 0, state, firstPublicLocation, programSize)
     }
 
     fun debug() {
@@ -42,7 +42,8 @@ class Memory {
 }
 
 class ROM(private val filename: String) {
-    fun read() = DataInputStream(BufferedInputStream(javaClass.getResourceAsStream(filename))).use { it.readBytes() }
+    fun read(): ProgramInstructions =
+        DataInputStream(BufferedInputStream(javaClass.getResourceAsStream(filename))).use { it.readBytes() }
 }
 
 class Opcode(private val mostSignificantByte: Byte, private val leastSignificantByte: Byte) {
