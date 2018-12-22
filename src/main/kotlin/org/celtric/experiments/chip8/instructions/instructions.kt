@@ -10,16 +10,17 @@ class Instructions(private val instructions: List<Instruction>) {
 class InstructionData(private val mostSignificantByte: Byte, private val leastSignificantByte: Byte) {
     fun upperNibble() = UpperNibble((mostSignificantByte.toInt() and 0xf0) shr 4)
     fun lowerNibble() = UpperNibble(mostSignificantByte.toInt() and 0xf)
-    fun leastSignificantByte() = leastSignificantByte
+    fun leastSignificantByteAsNumber() = Number(leastSignificantByte.toInt())
 }
 
-class UpperNibble(private val value: Int) {
+data class UpperNibble(private val value: Int) {
     fun toRegister() = Register(value)
 }
 
-class LowerNibble(private val value: Int)
+data class LowerNibble(private val value: Int)
 
-class Register(private val number: Int)
+data class Register(private val number: Int)
+data class Number(private val value: Int)
 
 abstract class Instruction {
 
@@ -34,6 +35,3 @@ abstract class Instruction {
         }
     }
 }
-
-internal fun Byte.lowerNibble() = toInt() and 0xf
-internal fun Byte.toHex() = Integer.toHexString(toInt())
