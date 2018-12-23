@@ -47,6 +47,7 @@ abstract class Instruction {
         fun fromData(instructionData: InstructionData): Instruction {
             return when (instructionData.instructionCode()) {
                 JumpToAddress.instructionCode -> JumpToAddress(instructionData)
+                ExecuteSubroutine.instructionCode -> ExecuteSubroutine(instructionData)
                 SkipNextInstructionIfRegisterValueEquals.instructionCode -> SkipNextInstructionIfRegisterValueEquals(instructionData)
                 StoreNumber.instructionCode -> StoreNumber(instructionData)
                 AddValueToRegister.instructionCode -> AddValueToRegister(instructionData)
