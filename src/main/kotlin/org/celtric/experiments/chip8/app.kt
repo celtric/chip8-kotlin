@@ -16,7 +16,7 @@ class App {
         instructions.debug()
         // Application.launch(Display::class.java)
         val vm = VirtualMachine()
-        instructions.execute(vm)
+        vm.execute(instructions)
     }
 }
 

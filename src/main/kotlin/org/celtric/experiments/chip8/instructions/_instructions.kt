@@ -5,9 +5,7 @@ import kotlin.random.Random
 
 class Instructions(private val instructions: List<Instruction>) {
 
-    fun execute(vm: VirtualMachine) {
-        instructions.forEach { it.execute(vm) }
-    }
+    fun all() = instructions
 
     fun debug() {
         instructions.forEach { it.debug().print() }

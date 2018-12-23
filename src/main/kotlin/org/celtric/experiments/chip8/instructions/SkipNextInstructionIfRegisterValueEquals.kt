@@ -12,7 +12,7 @@ internal class SkipNextInstructionIfRegisterValueEquals(instructionData: Instruc
     }
 
     override fun execute(vm: VirtualMachine) {
-        TODO()
+        vm.skipNextIfRegisterEquals(register, compareTo)
     }
 
     override fun debug() = DebugInfo("Skip the following instruction if the value of $register equals $compareTo")
