@@ -1,6 +1,7 @@
 package org.celtric.experiments.chip8.instructions
 
 import org.celtric.experiments.chip8.VirtualMachine
+import kotlin.random.Random
 
 class Instructions(private val instructions: List<Instruction>) {
 
@@ -37,7 +38,14 @@ data class Nibble(private val value: Int) {
 }
 
 data class Register(private val number: Int)
-data class Number(private val value: Int)
+
+data class Number(private val value: Int) {
+    companion object {
+        // TODO: use mask
+        fun random(mask: Number) = Number(Random.nextInt(0, 255))
+    }
+}
+
 data class MemoryAddress(private val address: Int) {
     override fun toString(): String {
         return "MemoryAddress(address=0x${address.toHex()})"
@@ -59,7 +67,7 @@ abstract class Instruction {
             AddValueToRegister.matches(data) -> AddValueToRegister(data)
             CopyRegister.matches(data) -> CopyRegister(data)
             SetIndex.matches(data) -> SetIndex(data)
-            SetToRandomNumberWithMask.matches(data) -> SetToRandomNumberWithMask(data)
+            StoreRandomNumber.matches(data) -> StoreRandomNumber(data)
             DrawSprite.matches(data) -> DrawSprite(data)
             else -> UnknownInstruction(data)
         }
