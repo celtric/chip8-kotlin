@@ -1,5 +1,7 @@
 package org.celtric.experiments.chip8.instructions
 
+import org.celtric.experiments.chip8.VirtualMachine
+
 internal class SetToRandomNumberWithMask(instructionData: InstructionData) : Instruction() {
 
     private val register = instructionData.msbLowerNibble().toRegister()
@@ -7,6 +9,10 @@ internal class SetToRandomNumberWithMask(instructionData: InstructionData) : Ins
 
     companion object {
         fun matches(data: InstructionData) = data.instructionCode() == InstructionCode(0xC)
+    }
+
+    override fun execute(vm: VirtualMachine) {
+        TODO()
     }
 
     override fun debug() = DebugInfo("Set $register to a random number with a mask of $mask")

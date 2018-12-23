@@ -1,5 +1,7 @@
 package org.celtric.experiments.chip8.instructions
 
+import org.celtric.experiments.chip8.VirtualMachine
+
 internal class DrawSprite(instructionData: InstructionData) : Instruction() {
 
     private val coordinate = instructionData.msbLowerNibble().toCoordinate(instructionData.lsbUpperNibble())
@@ -7,6 +9,10 @@ internal class DrawSprite(instructionData: InstructionData) : Instruction() {
 
     companion object {
         fun matches(data: InstructionData) = data.instructionCode() == InstructionCode(0xD)
+    }
+
+    override fun execute(vm: VirtualMachine) {
+        TODO()
     }
 
     override fun debug() =

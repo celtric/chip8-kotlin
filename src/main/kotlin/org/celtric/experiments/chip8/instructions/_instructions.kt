@@ -1,6 +1,12 @@
 package org.celtric.experiments.chip8.instructions
 
+import org.celtric.experiments.chip8.VirtualMachine
+
 class Instructions(private val instructions: List<Instruction>) {
+
+    fun execute(vm: VirtualMachine) {
+        instructions.forEach { it.execute(vm) }
+    }
 
     fun debug() {
         instructions.forEach { it.debug().print() }
@@ -41,6 +47,7 @@ data class Coordinate(private val x: Int, private val y: Int)
 
 abstract class Instruction {
 
+    abstract fun execute(vm: VirtualMachine)
     abstract fun debug(): DebugInfo
 
     companion object {

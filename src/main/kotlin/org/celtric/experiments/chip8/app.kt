@@ -1,10 +1,8 @@
 package org.celtric.experiments.chip8
 
-import javafx.application.Application
 import org.celtric.experiments.chip8.instructions.Instruction
 import org.celtric.experiments.chip8.instructions.InstructionData
 import org.celtric.experiments.chip8.instructions.Instructions
-import org.celtric.experiments.chip8.ui.Display
 import java.io.BufferedInputStream
 import java.io.DataInputStream
 
@@ -16,7 +14,9 @@ class App {
     fun run(romLocation: String) {
         val instructions = ROM(romLocation).read()
         instructions.debug()
-        Application.launch(Display::class.java)
+        // Application.launch(Display::class.java)
+        val vm = VirtualMachine()
+        instructions.execute(vm)
     }
 }
 
