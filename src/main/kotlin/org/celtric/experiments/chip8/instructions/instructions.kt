@@ -46,6 +46,7 @@ abstract class Instruction {
     companion object {
         fun fromData(instructionData: InstructionData): Instruction {
             return when (instructionData.instructionCode()) {
+                JumpToAddress.instructionCode -> JumpToAddress(instructionData)
                 SkipNextInstructionIfRegisterValueEquals.instructionCode -> SkipNextInstructionIfRegisterValueEquals(instructionData)
                 StoreNumber.instructionCode -> StoreNumber(instructionData)
                 AddValueToRegister.instructionCode -> AddValueToRegister(instructionData)

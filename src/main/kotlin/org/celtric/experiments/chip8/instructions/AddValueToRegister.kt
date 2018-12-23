@@ -10,6 +10,6 @@ internal class AddValueToRegister(instructionData: InstructionData) : Instructio
     }
 
     override fun debug() {
-        println("Add the value $number to register $register")
+        println("Add $number to $register")
     }
 }
