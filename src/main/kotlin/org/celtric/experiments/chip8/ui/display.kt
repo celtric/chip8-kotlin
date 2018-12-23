@@ -7,7 +7,8 @@ import javafx.scene.layout.StackPane
 import javafx.scene.paint.Color
 import javafx.scene.shape.Rectangle
 import javafx.stage.Stage
-import java.util.HashSet
+import org.celtric.experiments.chip8.ROM
+import org.celtric.experiments.chip8.VirtualMachine
 
 class Display : Application() {
 
@@ -15,11 +16,14 @@ class Display : Application() {
     private val height = 32
     private val cellSize = 10
     private val backgroundColor = Color.BLACK
+    private val fillColor = Color.WHITE
 
-    private val grid = HashSet<Coordinate>()
+    private val coordinates: MutableMap<ScreenCoordinate, Rectangle> = mutableMapOf()
 
     override fun start(primaryStage: Stage) {
-        fillGrid(width, height)
+
+        val instructions = ROM("/roms/maze.ch8").read()
+        instructions.debug()
 
         val root = StackPane()
         root.id = "root"
@@ -29,26 +33,29 @@ class Display : Application() {
         primaryStage.isResizable = false
         primaryStage.scene = scene
         primaryStage.show()
+
+        val vm = VirtualMachine(this)
+        vm.execute(instructions)
     }
 
     private fun grid(): GridPane {
         val grid = GridPane()
         grid.isGridLinesVisible = true
 
-        this.grid.forEach { c ->
-            grid.add(c.rectangle, c.x, c.y)
+        for (y in 0 until height) {
+            for (x in 0 until width) {
+                coordinates[ScreenCoordinate(x, y)] = emptyCell()
+                grid.add(coordinates[ScreenCoordinate(x, y)], x, y)
+            }
         }
 
         return grid
     }
 
-    private fun fillGrid(width: Int, height: Int) {
-        for (y in 0 until height) {
-            for (x in 0 until width) {
-                grid.add(Coordinate(x, y, Rectangle(cellSize.toDouble(), cellSize.toDouble(), backgroundColor)))
-            }
-        }
+    private fun emptyCell() = Rectangle(cellSize.toDouble(), cellSize.toDouble(), backgroundColor)
+
+    fun draw(coordinate: ScreenCoordinate) {
+        coordinates[coordinate]!!.fill = fillColor
     }
 }
 
-private class Coordinate(val x: Int, val y: Int, val rectangle: Rectangle)

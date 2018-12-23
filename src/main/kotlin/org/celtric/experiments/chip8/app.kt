@@ -1,23 +1,15 @@
 package org.celtric.experiments.chip8
 
+import javafx.application.Application
 import org.celtric.experiments.chip8.instructions.Instruction
 import org.celtric.experiments.chip8.instructions.InstructionData
 import org.celtric.experiments.chip8.instructions.Instructions
+import org.celtric.experiments.chip8.ui.Display
 import java.io.BufferedInputStream
 import java.io.DataInputStream
 
 fun main(args: Array<String>) {
-    App().run("/roms/maze.ch8")
-}
-
-class App {
-    fun run(romLocation: String) {
-        val instructions = ROM(romLocation).read()
-        instructions.debug()
-        // Application.launch(Display::class.java)
-        val vm = VirtualMachine()
-        vm.execute(instructions)
-    }
+    Application.launch(Display::class.java)
 }
 
 class ROM(private val filename: String) {

@@ -12,7 +12,7 @@ internal class DrawSprite(instructionData: InstructionData) : Instruction() {
     }
 
     override fun execute(vm: VirtualMachine) {
-        TODO()
+        vm.drawSprint(coordinate, height)
     }
 
     override fun debug() =

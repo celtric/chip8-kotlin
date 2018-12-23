@@ -1,6 +1,8 @@
 package org.celtric.experiments.chip8.instructions
 
+import javafx.stage.Screen
 import org.celtric.experiments.chip8.VirtualMachine
+import org.celtric.experiments.chip8.ui.ScreenCoordinate
 import kotlin.random.Random
 
 class Instructions(private val instructions: List<Instruction>) {
@@ -32,12 +34,15 @@ data class Nibble(private val value: Int) {
     fun toInstructionCode() = InstructionCode(value)
     fun toRegister() = Register(value)
     fun toNumber() = Number(value)
-    fun toCoordinate(y: Nibble) = Coordinate(value, y.value)
+    fun toCoordinate(y: Nibble) = RegisterCoordinate(Register(value), Register(y.value))
 }
 
 data class Register(private val number: Int)
 
 data class Number(private val value: Int) {
+
+    fun toInt() = value
+
     companion object {
         // TODO: use mask
         fun random(mask: Number) = Number(Random.nextInt(0, 255))
@@ -49,7 +54,10 @@ data class MemoryAddress(private val address: Int) {
         return "MemoryAddress(address=0x${address.toHex()})"
     }
 }
-data class Coordinate(private val x: Int, private val y: Int)
+
+data class RegisterCoordinate(private val x: Register, private val y: Register) {
+    fun resolve(registers: Map<Register, Number>) = ScreenCoordinate(registers[x]!!.toInt(), registers[y]!!.toInt())
+}
 
 abstract class Instruction {
 

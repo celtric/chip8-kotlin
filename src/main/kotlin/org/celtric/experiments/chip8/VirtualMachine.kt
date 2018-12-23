@@ -2,8 +2,9 @@ package org.celtric.experiments.chip8
 
 import org.celtric.experiments.chip8.instructions.*
 import org.celtric.experiments.chip8.instructions.Number
+import org.celtric.experiments.chip8.ui.Display
 
-class VirtualMachine {
+class VirtualMachine(private val display: Display) {
 
     private val registers: MutableMap<Register, Number> = mutableMapOf()
     private var index: MemoryAddress? = null
@@ -32,5 +33,10 @@ class VirtualMachine {
         if (registers[register] == compareTo) {
             skipNextInstruction = true
         }
+    }
+
+    // TODO: use height
+    fun drawSprint(coordinate: RegisterCoordinate, height: Number) {
+        display.draw(coordinate.resolve(registers))
     }
 }
