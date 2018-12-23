@@ -6,7 +6,7 @@ internal class SkipNextInstructionIfRegisterValueEquals(instructionData: Instruc
     private val compareTo = instructionData.lsbAsNumber()
 
     companion object {
-        val instructionCode = InstructionCode(0x3)
+        fun matches(data: InstructionData) = data.instructionCode() == InstructionCode(0x3)
     }
 
     override fun debug() = DebugInfo("Skip the following instruction if the value of $register equals $compareTo")

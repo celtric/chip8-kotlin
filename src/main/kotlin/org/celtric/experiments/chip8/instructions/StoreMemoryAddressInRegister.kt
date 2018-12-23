@@ -5,7 +5,7 @@ internal class StoreMemoryAddressInRegister(instructionData: InstructionData) : 
     private val address = instructionData.memoryAddress()
 
     companion object {
-        val instructionCode = InstructionCode(0xA)
+        fun matches(data: InstructionData) = data.instructionCode() == InstructionCode(0xA)
     }
 
     override fun debug() = DebugInfo("Store $address in register ???")

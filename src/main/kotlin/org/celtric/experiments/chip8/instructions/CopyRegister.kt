@@ -6,7 +6,7 @@ internal class CopyRegister(instructionData: InstructionData) : Instruction() {
     private val to = instructionData.lsbUpperNibble().toRegister()
 
     companion object {
-        val instructionCode = InstructionCode(0x8)
+        fun matches(data: InstructionData) = data.instructionCode() == InstructionCode(0x8)
     }
 
     override fun debug() = DebugInfo("Store the value of $from in $to")

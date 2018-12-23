@@ -6,7 +6,7 @@ internal class SetToRandomNumberWithMask(instructionData: InstructionData) : Ins
     private val mask = instructionData.lsbAsNumber()
 
     companion object {
-        val instructionCode = InstructionCode(0xC)
+        fun matches(data: InstructionData) = data.instructionCode() == InstructionCode(0xC)
     }
 
     override fun debug() = DebugInfo("Set $register to a random number with a mask of $mask")

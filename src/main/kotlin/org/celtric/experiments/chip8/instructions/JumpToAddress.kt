@@ -5,7 +5,7 @@ internal class JumpToAddress(instructionData: InstructionData) : Instruction() {
     private val address = instructionData.memoryAddress()
 
     companion object {
-        val instructionCode = InstructionCode(0x1)
+        fun matches(data: InstructionData) = data.instructionCode() == InstructionCode(0x1)
     }
 
     override fun debug() = DebugInfo("Jump to $address")

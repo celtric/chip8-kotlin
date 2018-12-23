@@ -44,18 +44,18 @@ abstract class Instruction {
     abstract fun debug(): DebugInfo
 
     companion object {
-        fun fromData(instructionData: InstructionData): Instruction {
-            return when (instructionData.instructionCode()) {
-                JumpToAddress.instructionCode -> JumpToAddress(instructionData)
-                ExecuteSubroutine.instructionCode -> ExecuteSubroutine(instructionData)
-                SkipNextInstructionIfRegisterValueEquals.instructionCode -> SkipNextInstructionIfRegisterValueEquals(instructionData)
-                StoreNumber.instructionCode -> StoreNumber(instructionData)
-                AddValueToRegister.instructionCode -> AddValueToRegister(instructionData)
-                CopyRegister.instructionCode -> CopyRegister(instructionData)
-                StoreMemoryAddressInRegister.instructionCode -> StoreMemoryAddressInRegister(instructionData)
-                SetToRandomNumberWithMask.instructionCode -> SetToRandomNumberWithMask(instructionData)
-                DrawSprite.instructionCode -> DrawSprite(instructionData)
-                else -> UnknownInstruction(instructionData)
+        fun fromData(data: InstructionData): Instruction {
+            return when (true) {
+                JumpToAddress.matches(data) -> JumpToAddress(data)
+                ExecuteSubroutine.matches(data) -> ExecuteSubroutine(data)
+                SkipNextInstructionIfRegisterValueEquals.matches(data) -> SkipNextInstructionIfRegisterValueEquals(data)
+                StoreNumber.matches(data) -> StoreNumber(data)
+                AddValueToRegister.matches(data) -> AddValueToRegister(data)
+                CopyRegister.matches(data) -> CopyRegister(data)
+                StoreMemoryAddressInRegister.matches(data) -> StoreMemoryAddressInRegister(data)
+                SetToRandomNumberWithMask.matches(data) -> SetToRandomNumberWithMask(data)
+                DrawSprite.matches(data) -> DrawSprite(data)
+                else -> UnknownInstruction(data)
             }
         }
     }

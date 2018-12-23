@@ -6,7 +6,7 @@ internal class StoreNumber(instructionData: InstructionData) : Instruction() {
     private val number = instructionData.lsbAsNumber()
 
     companion object {
-        val instructionCode = InstructionCode(0x6)
+        fun matches(data: InstructionData) = data.instructionCode() == InstructionCode(0x6)
     }
 
     override fun debug() = DebugInfo("Store $number in $register")

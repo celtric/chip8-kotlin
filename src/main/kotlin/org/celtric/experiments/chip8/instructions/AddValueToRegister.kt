@@ -6,7 +6,7 @@ internal class AddValueToRegister(instructionData: InstructionData) : Instructio
     private val number = instructionData.lsbAsNumber()
 
     companion object {
-        val instructionCode = InstructionCode(0x7)
+        fun matches(data: InstructionData) = data.instructionCode() == InstructionCode(0x7)
     }
 
     override fun debug() = DebugInfo("Add $number to $register")

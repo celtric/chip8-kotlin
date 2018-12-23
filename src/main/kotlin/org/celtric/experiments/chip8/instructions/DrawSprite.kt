@@ -6,7 +6,7 @@ internal class DrawSprite(instructionData: InstructionData) : Instruction() {
     private val height = instructionData.lsbLowerNibble().toNumber()
 
     companion object {
-        val instructionCode = InstructionCode(0xD)
+        fun matches(data: InstructionData) = data.instructionCode() == InstructionCode(0xD)
     }
 
     override fun debug() =
