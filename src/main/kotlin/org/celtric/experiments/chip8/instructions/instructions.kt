@@ -8,10 +8,12 @@ class Instructions(private val instructions: List<Instruction>) {
 }
 
 class InstructionData(private val mostSignificantByte: Byte, private val leastSignificantByte: Byte) {
-    fun instructionCode() = upperNibble().toInstructionCode()
-    private fun upperNibble() = Nibble((mostSignificantByte.toInt() and 0xf0) shr 4)
-    fun lowerNibble() = Nibble(mostSignificantByte.toInt() and 0xf)
-    fun leastSignificantByteAsNumber() = Number(leastSignificantByte.toInt())
+    fun instructionCode() = msbUpperNibble().toInstructionCode()
+    fun msbUpperNibble() = mostSignificantByte.upperNibble()
+    fun msbLowerNibble() = mostSignificantByte.lowerNibble()
+    fun lsbUpperNibble() = leastSignificantByte.upperNibble()
+    fun lsbLowerNibble() = leastSignificantByte.lowerNibble()
+    fun lsbAsNumber() = Number(leastSignificantByte.toInt())
     fun memoryAddress() = MemoryAddress(((mostSignificantByte.toInt() and 0xf) shl 8) or (leastSignificantByte.toInt() and 0xff))
 }
 
@@ -22,8 +24,10 @@ data class InstructionCode(private val code: Int) {
 }
 
 data class Nibble(private val value: Int) {
-    fun toRegister() = Register(value)
     fun toInstructionCode() = InstructionCode(value)
+    fun toRegister() = Register(value)
+    fun toNumber() = Number(value)
+    fun toCoordinate(y: Nibble) = Coordinate(value, y.value)
 }
 
 data class Register(private val number: Int)
@@ -33,6 +37,7 @@ data class MemoryAddress(private val address: Int) {
         return "MemoryAddress(address=0x${address.toHex()})"
     }
 }
+data class Coordinate(private val x: Int, private val y: Int)
 
 abstract class Instruction {
 
@@ -45,6 +50,7 @@ abstract class Instruction {
                 StoreNumber.instructionCode -> StoreNumber(instructionData)
                 StoreMemoryAddressInRegister.instructionCode -> StoreMemoryAddressInRegister(instructionData)
                 SetToRandomNumberWithMask.instructionCode -> SetToRandomNumberWithMask(instructionData)
+                DrawSprite.instructionCode -> DrawSprite(instructionData)
                 else -> UnknownInstruction(instructionData)
             }
         }
@@ -52,3 +58,6 @@ abstract class Instruction {
 }
 
 private fun Int.toHex() = Integer.toHexString(this)
+private fun Byte.toHex() = Integer.toHexString(toInt())
+private fun Byte.upperNibble() = Nibble((toInt() and 0xf0) shr 4)
+private fun Byte.lowerNibble() = Nibble(toInt() and 0xf)

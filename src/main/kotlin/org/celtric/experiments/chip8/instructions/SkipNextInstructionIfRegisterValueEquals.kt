@@ -2,8 +2,8 @@ package org.celtric.experiments.chip8.instructions
 
 internal class SkipNextInstructionIfRegisterValueEquals(instructionData: InstructionData) : Instruction() {
 
-    private val register = instructionData.lowerNibble().toRegister()
-    private val compareTo = instructionData.leastSignificantByteAsNumber()
+    private val register = instructionData.msbLowerNibble().toRegister()
+    private val compareTo = instructionData.lsbAsNumber()
 
     companion object {
         val instructionCode = InstructionCode(0x3)

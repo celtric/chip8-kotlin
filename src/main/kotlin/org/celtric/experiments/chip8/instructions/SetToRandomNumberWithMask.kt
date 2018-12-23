@@ -2,8 +2,8 @@ package org.celtric.experiments.chip8.instructions
 
 internal class SetToRandomNumberWithMask(instructionData: InstructionData) : Instruction() {
 
-    private val register = instructionData.lowerNibble().toRegister()
-    private val mask = instructionData.leastSignificantByteAsNumber()
+    private val register = instructionData.msbLowerNibble().toRegister()
+    private val mask = instructionData.lsbAsNumber()
 
     companion object {
         val instructionCode = InstructionCode(0xC)
