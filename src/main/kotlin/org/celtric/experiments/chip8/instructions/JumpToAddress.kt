@@ -11,7 +11,7 @@ internal class JumpToAddress(instructionData: InstructionData) : Instruction() {
     }
 
     override fun execute(vm: VirtualMachine) {
-        TODO()
+        vm.jumpTo(address)
     }
 
     override fun debug() = DebugInfo("Jump to $address")

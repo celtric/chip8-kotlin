@@ -7,6 +7,7 @@ import org.celtric.experiments.chip8.ui.Display
 class VirtualMachine(private val display: Display) {
 
     private val registers: MutableMap<Register, Number> = mutableMapOf()
+    private var programCounter: MemoryAddress? = null
     private var index: MemoryAddress? = null
     private var skipNextInstruction = false
 
@@ -42,5 +43,9 @@ class VirtualMachine(private val display: Display) {
     // TODO: use height
     fun drawSprint(coordinate: RegisterCoordinate, height: Number) {
         display.draw(coordinate.resolve(registers))
+    }
+
+    fun jumpTo(address: MemoryAddress) {
+        programCounter = address
     }
 }
