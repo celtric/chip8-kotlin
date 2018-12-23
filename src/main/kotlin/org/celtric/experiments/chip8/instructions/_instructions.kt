@@ -51,6 +51,7 @@ abstract class Instruction {
                 SkipNextInstructionIfRegisterValueEquals.instructionCode -> SkipNextInstructionIfRegisterValueEquals(instructionData)
                 StoreNumber.instructionCode -> StoreNumber(instructionData)
                 AddValueToRegister.instructionCode -> AddValueToRegister(instructionData)
+                CopyRegister.instructionCode -> CopyRegister(instructionData)
                 StoreMemoryAddressInRegister.instructionCode -> StoreMemoryAddressInRegister(instructionData)
                 SetToRandomNumberWithMask.instructionCode -> SetToRandomNumberWithMask(instructionData)
                 DrawSprite.instructionCode -> DrawSprite(instructionData)
