@@ -44,19 +44,17 @@ abstract class Instruction {
     abstract fun debug(): DebugInfo
 
     companion object {
-        fun fromData(data: InstructionData): Instruction {
-            return when (true) {
-                JumpToAddress.matches(data) -> JumpToAddress(data)
-                ExecuteSubroutine.matches(data) -> ExecuteSubroutine(data)
-                SkipNextInstructionIfRegisterValueEquals.matches(data) -> SkipNextInstructionIfRegisterValueEquals(data)
-                StoreNumber.matches(data) -> StoreNumber(data)
-                AddValueToRegister.matches(data) -> AddValueToRegister(data)
-                CopyRegister.matches(data) -> CopyRegister(data)
-                StoreMemoryAddressInRegister.matches(data) -> StoreMemoryAddressInRegister(data)
-                SetToRandomNumberWithMask.matches(data) -> SetToRandomNumberWithMask(data)
-                DrawSprite.matches(data) -> DrawSprite(data)
-                else -> UnknownInstruction(data)
-            }
+        fun fromData(data: InstructionData) = when (true) {
+            JumpToAddress.matches(data) -> JumpToAddress(data)
+            ExecuteSubroutine.matches(data) -> ExecuteSubroutine(data)
+            SkipNextInstructionIfRegisterValueEquals.matches(data) -> SkipNextInstructionIfRegisterValueEquals(data)
+            StoreNumber.matches(data) -> StoreNumber(data)
+            AddValueToRegister.matches(data) -> AddValueToRegister(data)
+            CopyRegister.matches(data) -> CopyRegister(data)
+            StoreMemoryAddressInRegister.matches(data) -> StoreMemoryAddressInRegister(data)
+            SetToRandomNumberWithMask.matches(data) -> SetToRandomNumberWithMask(data)
+            DrawSprite.matches(data) -> DrawSprite(data)
+            else -> UnknownInstruction(data)
         }
     }
 }
