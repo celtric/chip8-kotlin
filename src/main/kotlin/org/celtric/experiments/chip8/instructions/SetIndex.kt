@@ -2,7 +2,7 @@ package org.celtric.experiments.chip8.instructions
 
 import org.celtric.experiments.chip8.VirtualMachine
 
-internal class StoreMemoryAddressInRegister(instructionData: InstructionData) : Instruction() {
+internal class SetIndex(instructionData: InstructionData) : Instruction() {
 
     private val address = instructionData.memoryAddress()
 
@@ -11,8 +11,8 @@ internal class StoreMemoryAddressInRegister(instructionData: InstructionData) : 
     }
 
     override fun execute(vm: VirtualMachine) {
-        TODO()
+        vm.setIndex(address)
     }
 
-    override fun debug() = DebugInfo("Store $address in register ???")
+    override fun debug() = DebugInfo("Set index to $address")
 }

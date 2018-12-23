@@ -58,7 +58,7 @@ abstract class Instruction {
             StoreNumber.matches(data) -> StoreNumber(data)
             AddValueToRegister.matches(data) -> AddValueToRegister(data)
             CopyRegister.matches(data) -> CopyRegister(data)
-            StoreMemoryAddressInRegister.matches(data) -> StoreMemoryAddressInRegister(data)
+            SetIndex.matches(data) -> SetIndex(data)
             SetToRandomNumberWithMask.matches(data) -> SetToRandomNumberWithMask(data)
             DrawSprite.matches(data) -> DrawSprite(data)
             else -> UnknownInstruction(data)
