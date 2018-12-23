@@ -41,6 +41,7 @@ abstract class Instruction {
     companion object {
         fun fromReference(instructionData: InstructionData): Instruction {
             return when (instructionData.instructionCode()) {
+                SkipNextInstructionIfRegisterValueEquals.instructionCode -> SkipNextInstructionIfRegisterValueEquals(instructionData)
                 StoreNumber.instructionCode -> StoreNumber(instructionData)
                 StoreMemoryAddressInRegister.instructionCode -> StoreMemoryAddressInRegister(instructionData)
                 SetToRandomNumberWithMask.instructionCode -> SetToRandomNumberWithMask(instructionData)
