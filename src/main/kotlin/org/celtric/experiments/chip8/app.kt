@@ -24,13 +24,11 @@ class ROM(private val filename: String) {
 
     fun read(): Instructions {
         val romContent = romContent()
-        val opcodes = mutableListOf<Instruction>()
+        val instructions = mutableListOf<Instruction>()
         for (i in 0..(romContent.size - 1) step 2) {
-            opcodes.add(
-                Math.floor((i / 2).toDouble()).toInt(),
-                Instruction.fromData(InstructionData(romContent[i], romContent[i + 1])))
+            instructions.add(Instruction.fromData(InstructionData(romContent[i], romContent[i + 1])))
         }
-        return Instructions(opcodes)
+        return Instructions(instructions)
     }
 
     private fun romContent() =

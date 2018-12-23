@@ -24,22 +24,22 @@ class Display : Application() {
         val root = StackPane()
         root.id = "root"
         val scene = Scene(root, ((width - 1) * cellSize).toDouble(), ((height - 1) * cellSize).toDouble())
-        root.children.add(board())
+        root.children.add(grid())
         primaryStage.title = "CHIP-8 emulator"
         primaryStage.isResizable = false
         primaryStage.scene = scene
         primaryStage.show()
     }
 
-    private fun board(): GridPane {
-        val boardSpace = GridPane()
-        boardSpace.isGridLinesVisible = true
+    private fun grid(): GridPane {
+        val grid = GridPane()
+        grid.isGridLinesVisible = true
 
-        grid.forEach { c ->
-            boardSpace.add(c.rectangle, c.x, c.y)
+        this.grid.forEach { c ->
+            grid.add(c.rectangle, c.x, c.y)
         }
 
-        return boardSpace
+        return grid
     }
 
     private fun fillGrid(width: Int, height: Int) {
@@ -51,4 +51,4 @@ class Display : Application() {
     }
 }
 
-internal class Coordinate(val x: Int, val y: Int, val rectangle: Rectangle)
+private class Coordinate(val x: Int, val y: Int, val rectangle: Rectangle)
