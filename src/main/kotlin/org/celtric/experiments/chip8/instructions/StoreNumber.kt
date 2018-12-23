@@ -6,7 +6,7 @@ internal class StoreNumber(instructionData: InstructionData) : Instruction() {
     private val number = instructionData.leastSignificantByteAsNumber()
 
     companion object {
-        fun instructionCode() = InstructionCode(6)
+        val instructionCode = InstructionCode(6)
     }
 
     override fun debug() {
