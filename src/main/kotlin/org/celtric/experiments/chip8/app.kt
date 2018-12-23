@@ -25,7 +25,7 @@ class ROM(private val filename: String) {
         for (i in 0..(romContent.size - 1) step 2) {
             opcodes.add(
                 Math.floor((i / 2).toDouble()).toInt(),
-                Instruction.fromReference(InstructionData(romContent[i], romContent[i + 1])))
+                Instruction.fromData(InstructionData(romContent[i], romContent[i + 1])))
         }
         return Instructions(opcodes)
     }

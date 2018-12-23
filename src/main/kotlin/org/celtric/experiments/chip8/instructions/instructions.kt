@@ -39,7 +39,7 @@ abstract class Instruction {
     abstract fun debug()
 
     companion object {
-        fun fromReference(instructionData: InstructionData): Instruction {
+        fun fromData(instructionData: InstructionData): Instruction {
             return when (instructionData.instructionCode()) {
                 SkipNextInstructionIfRegisterValueEquals.instructionCode -> SkipNextInstructionIfRegisterValueEquals(instructionData)
                 StoreNumber.instructionCode -> StoreNumber(instructionData)
