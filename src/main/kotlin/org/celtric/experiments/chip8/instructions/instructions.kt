@@ -3,7 +3,7 @@ package org.celtric.experiments.chip8.instructions
 class Instructions(private val instructions: List<Instruction>) {
 
     fun debug() {
-        instructions.forEach { it.debug() }
+        instructions.forEach { it.debug().print() }
     }
 }
 
@@ -41,7 +41,7 @@ data class Coordinate(private val x: Int, private val y: Int)
 
 abstract class Instruction {
 
-    abstract fun debug()
+    abstract fun debug(): DebugInfo
 
     companion object {
         fun fromData(instructionData: InstructionData): Instruction {
@@ -56,6 +56,12 @@ abstract class Instruction {
                 else -> UnknownInstruction(instructionData)
             }
         }
+    }
+}
+
+class DebugInfo(private val description: String) {
+    fun print() {
+        println(description)
     }
 }
 

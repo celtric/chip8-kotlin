@@ -9,7 +9,5 @@ internal class StoreNumber(instructionData: InstructionData) : Instruction() {
         val instructionCode = InstructionCode(0x6)
     }
 
-    override fun debug() {
-        println("Store $number in $register")
-    }
+    override fun debug() = DebugInfo("Store $number in $register")
 }

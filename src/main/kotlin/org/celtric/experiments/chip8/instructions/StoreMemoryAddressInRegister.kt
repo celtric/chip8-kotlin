@@ -8,7 +8,5 @@ internal class StoreMemoryAddressInRegister(instructionData: InstructionData) : 
         val instructionCode = InstructionCode(0xA)
     }
 
-    override fun debug() {
-        println("Store $address in register ???")
-    }
+    override fun debug() = DebugInfo("Store $address in register ???")
 }

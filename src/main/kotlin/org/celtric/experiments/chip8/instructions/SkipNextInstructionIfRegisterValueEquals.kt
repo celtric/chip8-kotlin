@@ -9,7 +9,5 @@ internal class SkipNextInstructionIfRegisterValueEquals(instructionData: Instruc
         val instructionCode = InstructionCode(0x3)
     }
 
-    override fun debug() {
-        println("Skip the following instruction if the value of $register equals $compareTo")
-    }
+    override fun debug() = DebugInfo("Skip the following instruction if the value of $register equals $compareTo")
 }

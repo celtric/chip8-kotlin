@@ -8,7 +8,5 @@ internal class JumpToAddress(instructionData: InstructionData) : Instruction() {
         val instructionCode = InstructionCode(0x1)
     }
 
-    override fun debug() {
-        println("Jump to $address")
-    }
+    override fun debug() = DebugInfo("Jump to $address")
 }

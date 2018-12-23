@@ -4,7 +4,5 @@ internal class UnknownInstruction(instructionData: InstructionData) : Instructio
 
     private val instructionCode = instructionData.instructionCode()
 
-    override fun debug() {
-        println("Unknown instruction code $instructionCode")
-    }
+    override fun debug() = DebugInfo("Unknown instruction code $instructionCode")
 }

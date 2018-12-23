@@ -9,7 +9,5 @@ internal class SetToRandomNumberWithMask(instructionData: InstructionData) : Ins
         val instructionCode = InstructionCode(0xC)
     }
 
-    override fun debug() {
-        println("Set $register to a random number with a mask of $mask")
-    }
+    override fun debug() = DebugInfo("Set $register to a random number with a mask of $mask")
 }
