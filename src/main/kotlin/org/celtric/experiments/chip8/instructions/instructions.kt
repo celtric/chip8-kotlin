@@ -48,6 +48,7 @@ abstract class Instruction {
             return when (instructionData.instructionCode()) {
                 SkipNextInstructionIfRegisterValueEquals.instructionCode -> SkipNextInstructionIfRegisterValueEquals(instructionData)
                 StoreNumber.instructionCode -> StoreNumber(instructionData)
+                AddValueToRegister.instructionCode -> AddValueToRegister(instructionData)
                 StoreMemoryAddressInRegister.instructionCode -> StoreMemoryAddressInRegister(instructionData)
                 SetToRandomNumberWithMask.instructionCode -> SetToRandomNumberWithMask(instructionData)
                 DrawSprite.instructionCode -> DrawSprite(instructionData)
