@@ -25,6 +25,10 @@ class VirtualMachine(private val display: Display) {
         registers[register] = value
     }
 
+    fun increase(register: Register, by: Number) {
+        registers[register] = registers[register]!! + by
+    }
+
     fun setIndex(address: MemoryAddress) {
         index = address
     }

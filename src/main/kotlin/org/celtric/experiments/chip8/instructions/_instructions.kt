@@ -1,6 +1,5 @@
 package org.celtric.experiments.chip8.instructions
 
-import javafx.stage.Screen
 import org.celtric.experiments.chip8.VirtualMachine
 import org.celtric.experiments.chip8.ui.ScreenCoordinate
 import kotlin.random.Random
@@ -43,6 +42,8 @@ data class Number(private val value: Int) {
 
     fun toInt() = value
 
+    operator fun plus(amount: Number) = Number(value + amount.value)
+
     companion object {
         // TODO: use mask
         fun random(mask: Number) = Number(Random.nextInt(0, 255))
@@ -70,7 +71,7 @@ abstract class Instruction {
             ExecuteSubroutine.matches(data) -> ExecuteSubroutine(data)
             SkipNextInstructionIfRegisterValueEquals.matches(data) -> SkipNextInstructionIfRegisterValueEquals(data)
             StoreNumber.matches(data) -> StoreNumber(data)
-            AddValueToRegister.matches(data) -> AddValueToRegister(data)
+            IncreaseRegisterValue.matches(data) -> IncreaseRegisterValue(data)
             CopyRegister.matches(data) -> CopyRegister(data)
             SetIndex.matches(data) -> SetIndex(data)
             StoreRandomNumber.matches(data) -> StoreRandomNumber(data)
