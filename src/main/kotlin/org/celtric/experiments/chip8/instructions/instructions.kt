@@ -43,6 +43,7 @@ abstract class Instruction {
             return when (instructionData.instructionCode()) {
                 StoreNumber.instructionCode -> StoreNumber(instructionData)
                 StoreMemoryAddressInRegister.instructionCode -> StoreMemoryAddressInRegister(instructionData)
+                SetToRandomNumberWithMask.instructionCode -> SetToRandomNumberWithMask(instructionData)
                 else -> UnknownInstruction(instructionData)
             }
         }

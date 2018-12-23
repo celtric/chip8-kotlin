@@ -5,7 +5,7 @@ internal class StoreMemoryAddressInRegister(instructionData: InstructionData) : 
     private val memoryAddress = instructionData.memoryAddress()
 
     companion object {
-        val instructionCode = InstructionCode(10)
+        val instructionCode = InstructionCode(0xA)
     }
 
     override fun debug() {
