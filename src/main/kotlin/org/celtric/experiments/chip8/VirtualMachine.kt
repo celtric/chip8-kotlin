@@ -48,4 +48,8 @@ class VirtualMachine(private val display: Display) {
     fun jumpTo(address: MemoryAddress) {
         programCounter = address
     }
+
+    fun copy(from: Register, to: Register) {
+        registers[to] = registers[from]!!
+    }
 }

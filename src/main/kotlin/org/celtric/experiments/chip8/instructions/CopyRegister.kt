@@ -12,7 +12,7 @@ internal class CopyRegister(instructionData: InstructionData) : Instruction() {
     }
 
     override fun execute(vm: VirtualMachine) {
-        TODO()
+        vm.copy(from, to)
     }
 
     override fun debug() = DebugInfo("Store the value of $from in $to")
