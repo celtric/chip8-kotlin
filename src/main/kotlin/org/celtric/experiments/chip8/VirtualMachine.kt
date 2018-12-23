@@ -7,9 +7,11 @@ import org.celtric.experiments.chip8.ui.Display
 class VirtualMachine(private val display: Display) {
 
     private val registers: MutableMap<Register, Number> = mutableMapOf()
+    private val stack: MutableMap<Int, MemoryAddress> = mutableMapOf()
     private var programCounter: MemoryAddress? = null
     private var index: MemoryAddress? = null
     private var skipNextInstruction = false
+    private var stackPointer = 0
 
     fun execute(instructions: Instructions) {
         instructions.all().forEach { execute(it) }
@@ -51,5 +53,11 @@ class VirtualMachine(private val display: Display) {
 
     fun copy(from: Register, to: Register) {
         registers[to] = registers[from]!!
+    }
+
+    fun execute(address: MemoryAddress) {
+        stackPointer++
+        stack[stackPointer] = programCounter!!
+        programCounter = address
     }
 }
