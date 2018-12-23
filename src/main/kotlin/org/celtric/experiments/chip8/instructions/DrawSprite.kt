@@ -15,7 +15,8 @@ internal class DrawSprite(instructionData: InstructionData) : Instruction() {
         vm.drawSprint(coordinate, height)
     }
 
-    override fun debug() =
-        DebugInfo("Draw a sprite at $coordinate with $height bytes of sprite data starting at the address stored in I\n" +
-                  "    Set VF to 01 if any set pixels are changed to unset, and 00 otherwise")
+    override fun debug(address: MemoryAddress) =
+        DebugInfo(address,
+            "Draw a sprite at $coordinate with $height bytes of sprite data starting at the address stored in I\n" +
+                    "    Set VF to 01 if any set pixels are changed to unset, and 00 otherwise")
 }

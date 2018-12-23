@@ -15,5 +15,6 @@ internal class SkipNextInstructionIfRegisterValueEquals(instructionData: Instruc
         vm.skipNextIfRegisterEquals(register, compareTo)
     }
 
-    override fun debug() = DebugInfo("Skip the following instruction if the value of $register equals $compareTo")
+    override fun debug(address: MemoryAddress) =
+        DebugInfo(address, "Skip the following instruction if the value of $register equals $compareTo")
 }

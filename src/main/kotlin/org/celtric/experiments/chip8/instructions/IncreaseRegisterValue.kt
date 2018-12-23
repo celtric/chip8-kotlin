@@ -15,5 +15,5 @@ internal class IncreaseRegisterValue(instructionData: InstructionData) : Instruc
         vm.increase(register, by)
     }
 
-    override fun debug() = DebugInfo("Increase $register by $by")
+    override fun debug(address: MemoryAddress) = DebugInfo(address, "Increase $register by $by")
 }

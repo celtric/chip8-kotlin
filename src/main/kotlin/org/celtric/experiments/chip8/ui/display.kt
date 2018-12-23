@@ -1,5 +1,6 @@
 package org.celtric.experiments.chip8.ui
 
+import javafx.animation.KeyFrame
 import javafx.application.Application
 import javafx.scene.Scene
 import javafx.scene.layout.GridPane
@@ -9,6 +10,9 @@ import javafx.scene.shape.Rectangle
 import javafx.stage.Stage
 import org.celtric.experiments.chip8.ROM
 import org.celtric.experiments.chip8.VirtualMachine
+import javafx.animation.Timeline
+import javafx.event.EventHandler
+import javafx.util.Duration
 
 class Display : Application() {
 
@@ -34,8 +38,11 @@ class Display : Application() {
         primaryStage.scene = scene
         primaryStage.show()
 
-        val vm = VirtualMachine(this)
-        vm.execute(instructions)
+        val vm = VirtualMachine(instructions, this)
+        val timer = Timeline()
+        timer.cycleCount = Timeline.INDEFINITE
+        timer.keyFrames.add(KeyFrame(Duration.millis(16.0), EventHandler { vm.tick() }))
+        timer.play()
     }
 
     private fun grid(): GridPane {

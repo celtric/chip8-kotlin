@@ -11,5 +11,5 @@ internal class UnknownInstruction(instructionData: InstructionData) : Instructio
         RuntimeException("An unknown instruction cannot be executed")
     }
 
-    override fun debug() = DebugInfo("Unknown instruction code $instructionCode")
+    override fun debug(address: MemoryAddress) = DebugInfo(address, "Unknown instruction code $instructionCode")
 }

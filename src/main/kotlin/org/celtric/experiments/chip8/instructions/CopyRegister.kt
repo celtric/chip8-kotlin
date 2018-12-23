@@ -15,5 +15,5 @@ internal class CopyRegister(instructionData: InstructionData) : Instruction() {
         vm.copy(from, to)
     }
 
-    override fun debug() = DebugInfo("Store the value of $from in $to")
+    override fun debug(address: MemoryAddress) = DebugInfo(address, "Store the value of $from in $to")
 }

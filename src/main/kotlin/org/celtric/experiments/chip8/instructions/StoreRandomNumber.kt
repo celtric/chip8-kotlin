@@ -15,5 +15,6 @@ internal class StoreRandomNumber(instructionData: InstructionData) : Instruction
         vm.store(register, Number.random(mask))
     }
 
-    override fun debug() = DebugInfo("Set $register to a random number with a mask of $mask")
+    override fun debug(address: MemoryAddress) =
+        DebugInfo(address, "Set $register to a random number with a mask of $mask")
 }

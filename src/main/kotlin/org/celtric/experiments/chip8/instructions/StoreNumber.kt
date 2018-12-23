@@ -15,5 +15,5 @@ internal class StoreNumber(instructionData: InstructionData) : Instruction() {
         vm.store(register, number)
     }
 
-    override fun debug() = DebugInfo("Store $number in $register")
+    override fun debug(address: MemoryAddress) = DebugInfo(address, "Store $number in $register")
 }

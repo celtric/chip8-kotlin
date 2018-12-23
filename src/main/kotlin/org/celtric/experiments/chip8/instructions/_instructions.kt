@@ -4,13 +4,15 @@ import org.celtric.experiments.chip8.VirtualMachine
 import org.celtric.experiments.chip8.ui.ScreenCoordinate
 import kotlin.random.Random
 
-class Instructions(private val instructions: List<Instruction>) {
-
-    fun all() = instructions
+class Instructions(private val instructions: Map<MemoryAddress, Instruction>) {
 
     fun debug() {
-        instructions.forEach { it.debug().print() }
+        instructions.forEach { address, instruction -> instruction.debug(address).print() }
     }
+
+    fun exists(address: MemoryAddress) = instructions.contains(address)
+
+    fun at(address: MemoryAddress) = instructions[address]!!
 }
 
 class InstructionData(private val mostSignificantByte: Byte, private val leastSignificantByte: Byte) {
@@ -51,6 +53,11 @@ data class Number(private val value: Int) {
 }
 
 data class MemoryAddress(private val address: Int) {
+
+    operator fun plus(amount: Int) = MemoryAddress(address + amount)
+
+    fun nextInstruction() = MemoryAddress(address) + 2
+
     override fun toString(): String {
         return "MemoryAddress(address=0x${address.toHex()})"
     }
@@ -63,7 +70,7 @@ data class RegisterCoordinate(private val x: Register, private val y: Register) 
 abstract class Instruction {
 
     abstract fun execute(vm: VirtualMachine)
-    abstract fun debug(): DebugInfo
+    abstract fun debug(address: MemoryAddress): DebugInfo
 
     companion object {
         fun fromData(data: InstructionData) = when (true) {
@@ -81,9 +88,9 @@ abstract class Instruction {
     }
 }
 
-class DebugInfo(private val description: String) {
+class DebugInfo(private val address: MemoryAddress, private val description: String) {
     fun print() {
-        println(description)
+        println("$address - $description")
     }
 }
 

@@ -14,5 +14,5 @@ internal class ExecuteSubroutine(instructionData: InstructionData) : Instruction
         vm.execute(address)
     }
 
-    override fun debug() = DebugInfo("Execute subroutine starting at $address")
+    override fun debug(address: MemoryAddress) = DebugInfo(address, "Execute subroutine starting at $address")
 }

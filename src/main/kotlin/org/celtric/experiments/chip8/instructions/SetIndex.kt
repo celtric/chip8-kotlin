@@ -14,5 +14,5 @@ internal class SetIndex(instructionData: InstructionData) : Instruction() {
         vm.setIndex(address)
     }
 
-    override fun debug() = DebugInfo("Set index to $address")
+    override fun debug(address: MemoryAddress) = DebugInfo(address, "Set index to $address")
 }
